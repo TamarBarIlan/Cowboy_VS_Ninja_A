@@ -9,9 +9,10 @@ namespace ariel
     class YoungNinja : public Ninja
     {
     public:
-        YoungNinja(const std::string &name, Point &location);
+        YoungNinja(const std::string &name, const Point &location);
+        YoungNinja(const YoungNinja &other); // Copy constructor
+        YoungNinja& operator=(const YoungNinja &other); // Assignment operator
     };
-
 }
 
 #endif /* YOUNG_NINJA_HPP */

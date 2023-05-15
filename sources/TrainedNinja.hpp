@@ -9,7 +9,9 @@ namespace ariel
     class TrainedNinja : public Ninja
     {
     public:
-        TrainedNinja(const std::string &name, Point &location);
+        TrainedNinja(const std::string &name, const Point &location);
+        TrainedNinja(const TrainedNinja &other); // Copy constructor
+        TrainedNinja& operator=(const TrainedNinja &other); // Assignment operator
     };
 }
 

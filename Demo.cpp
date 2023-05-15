@@ -37,9 +37,9 @@ int main()
    cout << "6" << endl;
    Team team_A(tom);
    cout << "7" << endl;
-   Point p(64, 57);
-   team_A.add(new YoungNinja("Yogi", p));
-   // team_A.add(new YoungNinja("Yogi", Point(64, 57)));
+   // Point p(64, 57);
+   // team_A.add(new YoungNinja("Yogi", p));
+   team_A.add(new YoungNinja("Yogi", Point(64, 57)));
    cout << "8" << endl;
 
    // Team b(tom); should throw tom is already in team a

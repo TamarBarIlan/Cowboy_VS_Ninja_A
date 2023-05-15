@@ -9,12 +9,14 @@ namespace ariel
     class Character
     {
     private:
-        const std::string &name;
+        std::string name;
         Point location;
         int hitPoints;
 
     public:
-        Character(const std::string &name, Point &location, int hitPoints);
+        Character(const std::string &name, const Point &location, int hitPoints);
+        Character(const Character &other); // Copy constructor
+        Character& operator=(const Character &other); // Assignment operator
         virtual ~Character() = default;
         bool isAlive() const;
         double distance(const Character &other) const;
@@ -27,7 +29,6 @@ namespace ariel
             return "Character: ";
         }
     };
-
 }
 
 #endif /* CHARACTER_HPP */

@@ -9,7 +9,9 @@ namespace ariel
     class OldNinja : public Ninja
     {
     public:
-        OldNinja(const std::string &name, Point &location);
+        OldNinja(const std::string &name, const Point &location);
+        OldNinja(const OldNinja &other); // Copy constructor
+        OldNinja& operator=(const OldNinja &other); // Assignment operator
     };
 }
 

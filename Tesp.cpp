@@ -85,7 +85,7 @@ TEST_SUITE("Test Character Class")
 {
     TEST_CASE("Test Character isAlive")
     {
-        Character c(Point(1, 1), 100, "John");
+        Character c("John", Point(1, 1), 100);
         CHECK(c.isAlive() == true);
     }
 
