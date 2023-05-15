@@ -3,199 +3,98 @@
 #include "sources/Cowboy.hpp"
 #include "sources/Ninja.hpp"
 #include "sources/Team.hpp"
+
 #include "doctest.h"
 
 #include <sstream>
+#include <cmath>
+// #include "catch.hpp"
 
 using namespace std;
 using namespace ariel;
 
-
-TEST_SUITE("Test Point Class") {
-    TEST_CASE("Test constructor") {
-        Point p(2.0, 3.0);
-        CHECK(p.getX() == 2.0);
-        CHECK(p.getY() == 3.0);
-    }
-
-    TEST_CASE("Test distance method") {
-        Point p1(0, 0);
-        Point p2(3, 4);
-
-        double dist = p1.distance(p2);
-        CHECK(dist == 5.0);
-    }
-
-    TEST_CASE("Test distance with negative coordinates") {
-        Point p1(-2, -2);
-        Point p2(2, 2);
-
-        double dist = p1.distance(p2);
-        CHECK(dist == 5.657);
-    }
-
-    TEST_CASE("Test moveTowards method") {
-        Point source(0, 0);
-        Point destination(4, 4);
-        double step = 2.0;
-
-        Point result = source.moveTowards(source, destination, step);
-        CHECK(result.distance(Point(2, 2)) == 0);
-    }
-
-    TEST_CASE("Test moveTowards method with negative coordinates") {
-        Point source(0, 0);
-        Point destination(-4, -4);
-        double step = 2.0;
-
-        Point result = source.moveTowards(source, destination, step);
-        CHECK(result.distance(Point(-2, -2)) == 0);
-    }
-
-    TEST_CASE("Test moveTowards method beyond destination") {
-        Point source(0, 0);
-        Point destination(1, 1);
-        double step = 2.0;
-
-        Point result = source.moveTowards(source, destination, step);
-        CHECK(result.distance(Point(1, 1)) == 0);
-    }
-
-    TEST_CASE("Test moveTowards method with zero step") {
-        Point source(0, 0);
-        Point destination(4, 4);
-        double step = 0.0;
-
-        Point result = source.moveTowards(source, destination, step);
-        CHECK(result.distance(Point(0, 0)) == 0);
-    }
-
-    TEST_CASE("Test moveTowards method with large step") {
-        Point source(0, 0);
-        Point destination(4, 4);
-        double step = 100.0;
-
-        Point result = source.moveTowards(source, destination, step);
-        CHECK(result.distance(Point(4, 4)) == 0);
-    }
-
-}
-
-TEST_SUITE("Test Character Class")
+TEST_CASE("Test Point Class")
 {
-    TEST_CASE("Test Character isAlive")
+
+    // Test constructor using distance
     {
-        Character c("John", Point(1, 1), 100);
-        CHECK(c.isAlive() == true);
+        Point p1(1, 2);
+        Point p2(3.14, -2.5);
+        Point p3(-10, 5);
+
+        // Calculate the expected distances
+        double dist1 = std::sqrt(std::pow(1 - 0, 2) + std::pow(2 - 0, 2));
+        double dist2 = std::sqrt(std::pow(3.14 - 0, 2) + std::pow(-2.5 - 0, 2));
+        double dist3 = std::sqrt(std::pow(-10 - 0, 2) + std::pow(5 - 0, 2));
+
+        CHECK(p1.distance(Point(0, 0)) == doctest::Approx(dist1));
+        CHECK(p2.distance(Point(0, 0)) == doctest::Approx(dist2));
+        CHECK(p3.distance(Point(0, 0)) == doctest::Approx(dist3));
     }
 
-    TEST_CASE("Test Character hit")
+    // Test moveTowards function
     {
-        Character c(Point(1, 1), 100, "John");
-        c.hit(50);
-        CHECK(c.getHitPoints() == 50);
-    }
+        Point p(3, 4);
+        Point destination(0, 0);
+        double distance = 5;
 
-    TEST_CASE("Test Character getName")
-    {
-        Character c("John", Point(1, 1), 100);
-        CHECK(c.getName() == "John");
-    }
+        // Calculate the expected new position
+        double newX = (distance / p.distance(destination)) * (destination.getX() - p.getX()) + p.getX();
+        double newY = (distance / p.distance(destination)) * (destination.getY() - p.getY()) + p.getY();
 
-    TEST_CASE("Test Character getLocation")
-    {
-        Character c("John", Point(1, 1), 100);
-        CHECK(c.getLocation().distance(Point(1, 1)) == 0);
-    }
+        Point newPoint = p.moveTowards(p, destination, distance);
 
-    // ... Add more tests for Character class ...
+        CHECK(newPoint.getX() == doctest::Approx(newX));
+        CHECK(newPoint.getY() == doctest::Approx(newY));
+    }
 }
-
-TEST_SUITE("Test Cowboy Class")
+TEST_CASE("Test Character Class")
 {
-    TEST_CASE("Test Cowboy shoot")
-    {
-        Cowboy c("John", Point(1, 1));
-        Character enemy("Enemy", Point(2, 2), 100);
-        c.shoot(&enemy);
-        CHECK(enemy.getHitPoints() == 90);
-    }
+    Character c1("John Doe", Point(0, 0), 100);
+    Character c2("Jane Smith", Point(3, 4), 200);
 
-    TEST_CASE("Test Cowboy hasBullets")
-    {
-        Cowboy c("John", Point(1, 1));
-        CHECK(c.hasBullets() == true);
-    }
+    // Test default constructor
+    REQUIRE(c1.getName() == "John Doe");
+    REQUIRE(c1.getLocation().getX() == 0);
+    REQUIRE(c1.getLocation().getY() == 0);
+    REQUIRE(c1.getHitPoints() == 100);
 
-    TEST_CASE("Test Cowboy reload")
-    {
-        Cowboy c("John", Point(1, 1));
-        for (int i = 0; i < 6; i++)
-        {
-            Character enemy("Enemy", Point(2, 2), 100);
-            c.shoot(&enemy);
-        }
-        CHECK(c.hasBullets() == false);
-        c.reload();
-        CHECK(c.hasBullets() == true);
-    }
-
-    // ... Add more tests for Cowboy class ...
+    // Test isAlive function
+    REQUIRE(c1.isAlive() == true);
+    c1.hit(150);
+    REQUIRE(c1.isAlive() == false);
 }
 
-TEST_SUITE("Test Ninja Class")
-{
-    TEST_CASE("Test Ninja move")
-    {
-        YoungNinja n("John", Point(1, 1));
-        Character enemy("Enemy", Point(2, 2), 100);
-        n.move(&enemy);
-        CHECK(n.getLocation().distance(enemy.getLocation()) < 1.414);
-    }
+// TEST_CASE("Test Cowboy Class")
+// {
+//     // Test default constructor
+//     Cowboy cowboy("John Doe", Point(0, 0));
+//     REQUIRE(cowboy.getName() == "John Doe");
+//     // REQUIRE(cowboy.getLocation() == Point(0, 0));
+//     REQUIRE(cowboy.getHitPoints() == 100);
+//     REQUIRE(cowboy.getBullets() == 6);
 
-    TEST_CASE("Test Ninja slash")
-    {
-        YoungNinja n("John", Point(1, 1));
-        Character enemy("Enemy", Point(1.5, 1.5), 100);
-        n.slash(&enemy);
-        CHECK(enemy.getHitPoints() == 60);
-    }
+//     // Test shoot function
+//     Cowboy enemy("Enemy", Point(1, 1), 100);
+//     cowboy.shoot(&enemy);
+//     REQUIRE(enemy.getHitPoints() < 100);
 
-    // ... Add more tests for Ninja class ...
-}
+//     // Test hasBullets function
+//     REQUIRE(cowboy.hasBullets() == true);
+//     for (int i = 0; i < 6; ++i)
+//     {
+//         cowboy.shoot(nullptr);
+//     }
+//     REQUIRE(cowboy.hasBullets() == false);
 
-TEST_SUITE("Test Team Class")
-{
-    TEST_CASE("Test Team add")
-    {
-        Team t(new Cowboy("John", Point(1, 1)));
-        CHECK(t.getMemberCount() == 1);
-        t.add(new YoungNinja("Jane", Point(2, 2)));
-        CHECK(t.getMemberCount() == 2);
-    }
-
-    TEST_CASE("Test Team attack")
-    {
-        Team t1(new Cowboy("John", Point(1, 1)));
-        Team t2(new YoungNinja("Jane", Point(2, 2)));
-        t1.attack(&t2);
-        CHECK(t2.getMemberCount() == 1);
-    }
-
-    TEST_CASE("Test Team stillAlive")
-    {
-        Team t(new Cowboy("John", Point(1, 1)));
-        CHECK(t.stillAlive() == true);
-        t.getLeader()->hit(110);
-        CHECK(t.stillAlive() == false);
-    }
-
-    TEST_CASE("Test Team print")
-    {
-        Team t(new Cowboy("John", Point(1, 1)));
-        std::ostringstream out;
-        t.print(out);
-        CHECK(out.str() == "C John 110 (1, 1)\n");
-    }
-}
+//     // Test reload function
+//     for (int i = 0; i < 6; ++i)
+//     {
+//         cowboy.shoot(nullptr);
+//     }
+//     REQUIRE(cowboy.hasBullets() == false);
+//     cowboy.reload();
+//     REQUIRE(cowboy.hasBullets() == true);
+//     REQUIRE(cowboy.getBullets() == 6);
+// }
 

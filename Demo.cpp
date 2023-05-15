@@ -46,9 +46,9 @@ int main()
 
    Team team_B(sushi);
    cout << "9" << endl;
-   Point p1(12, 81);
-   team_B.add(new TrainedNinja("Hikari", p1));
-   // team_B.add(new TrainedNinja("Hikari", Point(12, 81)));
+   // Point p1(12, 81);
+   // team_B.add(new TrainedNinja("Hikari", p1));
+   team_B.add(new TrainedNinja("Hikari", Point(12, 81)));
    cout << "10" << endl;
 
    while (team_A.stillAlive() > 0 && team_B.stillAlive() > 0)
