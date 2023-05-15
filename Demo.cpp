@@ -20,6 +20,7 @@ int main()
 {
    cout << "1" << endl;
    Point a(32.3, 44), b(1.3, 3.5);
+   Point temp(1, 44); // get point with int
    cout << "2" << endl;
    assert(a.distance(b) == b.distance(a));
    cout << "3" << endl;
@@ -49,6 +50,7 @@ int main()
 
    while (team_A.stillAlive() > 0 && team_B.stillAlive() > 0)
    {
+      cout << "in wile" << endl;
       team_A.attack(&team_B);
       team_B.attack(&team_A);
       team_A.print();
