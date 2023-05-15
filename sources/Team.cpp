@@ -2,18 +2,18 @@
 using namespace ariel;
 using namespace std;
 
-Team::Team(Character* leader)
+Team::Team(Character* leader) : leader(leader)
 {
 }
 
 void Team::add(Character* character)
 {
-    std::unique_ptr<Character> character_ptr(character);
+    // std::unique_ptr<Character> character_ptr(character);
 }
 
 void Team::attack(Team* enemyTeam)
 {
-    Team& enemy = *enemyTeam;
+    // Team& enemy = *enemyTeam;
 }
 
 int Team::stillAlive() const

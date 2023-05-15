@@ -15,10 +15,14 @@ namespace ariel
 {
     class Team
     {
+    private:
+        std::vector<std::unique_ptr<Character>> fighters; 
+        Character *leader;
+
     public:
         Team(Character *leader);
         ~Team() = default;
-        void add(Character *character);
+        void add(Character *fight);
         void attack(Team *enemyTeam);
         int stillAlive() const;
         void print() const;

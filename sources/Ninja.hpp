@@ -12,6 +12,7 @@ namespace ariel
         Ninja(const Point &locationVal, int hitPointsVal, const std::string &nameVal, int speedVal);
         void move(Character* enemy);
         void slash(Character* enemy);
+        std::string print() const override;
     };
 
     

@@ -10,12 +10,15 @@ namespace ariel
     {
     public:
         Character(const Point &locationVal, int hitPointsVal, const std::string &nameVal);
+        virtual ~Character() = default;
         bool isAlive() const;
         double distance(const Character &other) const;
         void hit(int damage);
         std::string getName() const;
         Point getLocation() const;
-        std::string print() const;
+        // std::string print() const;
+        virtual std::string print() const = 0; // pure virtual function
+
     };
 
 }
