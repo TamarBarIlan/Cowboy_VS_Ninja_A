@@ -5,4 +5,4 @@
 using namespace ariel;
 using namespace std;
 
-OldNinja::OldNinja(const std::string& nameVal, const Point& locationVal) : Ninja(locationVal, 150, nameVal, 8) {}
+OldNinja::OldNinja(const std::string& name, Point& location) : Ninja(name, location, 150, 8) {}

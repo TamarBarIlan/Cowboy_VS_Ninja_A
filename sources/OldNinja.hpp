@@ -9,7 +9,7 @@ namespace ariel
     class OldNinja : public Ninja
     {
     public:
-        OldNinja(const std::string &nameVal, const Point &locationVal);
+        OldNinja(const std::string &name, Point &location);
     };
 }
 

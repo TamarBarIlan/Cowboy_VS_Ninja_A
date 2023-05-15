@@ -8,14 +8,15 @@ namespace ariel
 {
     class Ninja : public Character
     {
+    private:
+        int speed;
     public:
-        Ninja(const Point &locationVal, int hitPointsVal, const std::string &nameVal, int speedVal);
-        void move(Character* enemy);
-        void slash(Character* enemy);
+        Ninja(const std::string &name, Point &location, int hitPoints, int speed);
+        void move(Character *enemy);
+        void slash(Character *enemy);
+        int getSpeed();
         std::string print() const override;
     };
-
-    
 
 }
 

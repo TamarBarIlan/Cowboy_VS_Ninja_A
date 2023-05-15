@@ -8,16 +8,24 @@ namespace ariel
 {
     class Character
     {
+    private:
+        const std::string &name;
+        Point location;
+        int hitPoints;
+
     public:
-        Character(const Point &locationVal, int hitPointsVal, const std::string &nameVal);
+        Character(const std::string &name, Point &location, int hitPoints);
         virtual ~Character() = default;
         bool isAlive() const;
         double distance(const Character &other) const;
         void hit(int damage);
         std::string getName() const;
         Point getLocation() const;
-        virtual std::string print() const = 0; // pure virtual function
-
+        int getHitPoints();
+        virtual std::string print() const
+        {
+            return "Character: ";
+        }
     };
 
 }

@@ -8,13 +8,15 @@ namespace ariel
 {
     class Cowboy : public Character
     {
+    private:
+        int bullets;
     public:
-        Cowboy(const std::string &nameVal, const Point &locationVal);
-        void shoot(Character* enemy);
+        Cowboy(const std::string &nameVal, Point &locationVal);
+        void shoot(Character *enemy);
         bool hasBullets() const;
         void reload();
+        int getBullets();
         std::string print() const override;
-
     };
 
 }
