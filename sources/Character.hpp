@@ -15,8 +15,8 @@ namespace ariel
 
     public:
         Character(const std::string &name, const Point &location, int hitPoints);
-        Character(const Character &other); // Copy constructor
-        Character& operator=(const Character &other); // Assignment operator
+        Character(const Character &other); 
+        Character& operator=(const Character &other); 
         virtual ~Character() = default;
         bool isAlive() const;
         double distance(const Character &other) const;

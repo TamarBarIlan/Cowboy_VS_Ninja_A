@@ -21,7 +21,6 @@ TEST_CASE("Test Point Class")
         Point p2(3.14, -2.5);
         Point p3(-10, 5);
 
-        // Calculate the expected distances
         double dist1 = std::sqrt(std::pow(1 - 0, 2) + std::pow(2 - 0, 2));
         double dist2 = std::sqrt(std::pow(3.14 - 0, 2) + std::pow(-2.5 - 0, 2));
         double dist3 = std::sqrt(std::pow(-10 - 0, 2) + std::pow(5 - 0, 2));
@@ -105,7 +104,7 @@ TEST_CASE("Test Cowboy Class")
 
         Point p1(0, 0);
         Cowboy enemy("enemy", p1);
-        cowboy.shoot(&enemy); // Assuming this reduces the number of bullets
+        cowboy.shoot(&enemy);
         cowboy.reload();
         CHECK(cowboy.getBullets() == 11);
     }

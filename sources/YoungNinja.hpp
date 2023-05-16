@@ -10,8 +10,8 @@ namespace ariel
     {
     public:
         YoungNinja(const std::string &name, const Point &location);
-        YoungNinja(const YoungNinja &other); // Copy constructor
-        YoungNinja& operator=(const YoungNinja &other); // Assignment operator
+        YoungNinja(const YoungNinja &other); 
+        YoungNinja& operator=(const YoungNinja &other);
     };
 }
 
