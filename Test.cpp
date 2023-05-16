@@ -8,7 +8,6 @@
 
 #include <sstream>
 #include <cmath>
-// #include "catch.hpp"
 
 using namespace std;
 using namespace ariel;
@@ -50,11 +49,11 @@ TEST_CASE("Test Point Class")
 }
 TEST_CASE("Test Character Class")
 {
-    Character c1("John Doe", Point(0, 0), 100);
-    Character c2("Jane Smith", Point(3, 4), 200);
+    Character c1("John", Point(0, 0), 100);
+    Character c2("Jane", Point(3, 4), 200);
 
     // Test default constructor
-    REQUIRE(c1.getName() == "John Doe");
+    REQUIRE(c1.getName() == "John");
     REQUIRE(c1.getLocation().getX() == 0);
     REQUIRE(c1.getLocation().getY() == 0);
     REQUIRE(c1.getHitPoints() == 100);
@@ -69,8 +68,8 @@ TEST_CASE("Test Cowboy Class")
     // Test constructor
     {
         Point p(1, 2);
-        ariel::Cowboy cowboy("John", p);
-        CHECK(cowboy.getName() == "John");
+        Cowboy cowboy("Tamar", p);
+        CHECK(cowboy.getName() == "Tamar");
         CHECK(cowboy.getLocation().getX() == 1);
         CHECK(cowboy.getLocation().getY() == 2);
     }
@@ -78,9 +77,9 @@ TEST_CASE("Test Cowboy Class")
     // Test copy constructor
     {
         Point p(1, 2);
-        ariel::Cowboy cowboy1("John", p);
-        ariel::Cowboy cowboy2 = cowboy1; // Using the copy constructor
-        CHECK(cowboy2.getName() == "John");
+        Cowboy cowboy1("Tamar", p);
+        Cowboy cowboy2 = cowboy1; // Using the copy constructor
+        CHECK(cowboy2.getName() == "Tamar");
         CHECK(cowboy2.getLocation().getX() == 1);
         CHECK(cowboy2.getLocation().getY() == 2);
     }
@@ -89,10 +88,10 @@ TEST_CASE("Test Cowboy Class")
     {
         Point p1(1, 2);
         Point p2(3, 4);
-        ariel::Cowboy cowboy1("John", p1);
-        ariel::Cowboy cowboy2("Doe", p2);
+        Cowboy cowboy1("Tamar", p1);
+        Cowboy cowboy2("Doe", p2);
         cowboy2 = cowboy1;
-        CHECK(cowboy2.getName() == "John");
+        CHECK(cowboy2.getName() == "Tamar");
         CHECK(cowboy2.getLocation().getX() == 1);
         CHECK(cowboy2.getLocation().getY() == 2);
     }
@@ -100,12 +99,12 @@ TEST_CASE("Test Cowboy Class")
     // Test reload,hasBullets inimethod
     {
         Point p(1, 2);
-        ariel::Cowboy cowboy("John", p);
+        Cowboy cowboy("Tamar", p);
         CHECK(cowboy.hasBullets() == true);
         CHECK(cowboy.getBullets() == 6);
 
         Point p1(0, 0);
-        ariel::Cowboy enemy("enemy", p1);
+        Cowboy enemy("enemy", p1);
         cowboy.shoot(&enemy); // Assuming this reduces the number of bullets
         cowboy.reload();
         CHECK(cowboy.getBullets() == 11);
@@ -116,8 +115,8 @@ TEST_CASE("Test Ninja Classes")
     // Test constructor
     {
         Point p(1, 2);
-        ariel::Ninja ninja("John", p, 100, 10);
-        CHECK(ninja.getName() == "John");
+        Ninja ninja("Tamar", p, 100, 10);
+        CHECK(ninja.getName() == "Tamar");
         CHECK(ninja.getLocation().getX() == 1);
         CHECK(ninja.getLocation().getY() == 2);
         CHECK(ninja.getSpeed() == 10);
@@ -126,8 +125,8 @@ TEST_CASE("Test Ninja Classes")
     // Test YoungNinja constructor
     {
         Point p(1, 2);
-        ariel::YoungNinja youngNinja("John", p);
-        CHECK(youngNinja.getName() == "John");
+        YoungNinja youngNinja("Tamar", p);
+        CHECK(youngNinja.getName() == "Tamar");
         CHECK(youngNinja.getLocation().getX() == 1);
         CHECK(youngNinja.getLocation().getY() == 2);
         CHECK(youngNinja.getSpeed() == 14); 
@@ -136,8 +135,8 @@ TEST_CASE("Test Ninja Classes")
     // Test TrainedNinja constructor
     {
         Point p(1, 2);
-        ariel::TrainedNinja trainedNinja("John", p);
-        CHECK(trainedNinja.getName() == "John");
+        TrainedNinja trainedNinja("Tamar", p);
+        CHECK(trainedNinja.getName() == "Tamar");
         CHECK(trainedNinja.getLocation().getX() == 1);
         CHECK(trainedNinja.getLocation().getY() == 2);
         CHECK(trainedNinja.getSpeed() == 12);
@@ -146,10 +145,21 @@ TEST_CASE("Test Ninja Classes")
     // Test OldNinja constructor
     {
         Point p(1, 2);
-        ariel::OldNinja oldNinja("John", p);
-        CHECK(oldNinja.getName() == "John");
+        OldNinja oldNinja("Tamar", p);
+        CHECK(oldNinja.getName() == "Tamar");
         CHECK(oldNinja.getLocation().getX() == 1);
         CHECK(oldNinja.getLocation().getY() == 2);
         CHECK(oldNinja.getSpeed() == 8);
+    }
+}
+TEST_CASE("Test Team Classes")
+{
+    // Test Team constructor
+    {
+        Point p(1, 2);
+        ariel::Ninja ninja("Tamar", p, 100, 10);
+        ariel::Team team(&ninja);
+        CHECK(team.stillAlive() == 0);
+
     }
 }
